@@ -7,7 +7,7 @@ use warnings;
 use Class::Null;
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use base 'Class::Accessor::Complex';
@@ -54,7 +54,7 @@ sub id {
 }
 
 
-# The storage object's signature is needed by Class::Framework::Storable to
+# The storage object's signature is needed by Class::Scaffold::Storable to
 # associate an object's id with the storage. We can't just store an id in a
 # get_set_std accessor, because the business object's storage might be a
 # multiplexing storage, and the object would have a different id in each
@@ -120,8 +120,6 @@ site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
 =head1 AUTHORS
 
 Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
-
-Heinz Ekker C<< ek@univie.ac.at >>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -6,7 +6,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use base 'Data::Storage::Mock';
@@ -69,8 +69,6 @@ site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
 =head1 AUTHORS
 
 Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
-
-Heinz Ekker C<< ek@univie.ac.at >>
 
 =head1 COPYRIGHT AND LICENSE
 

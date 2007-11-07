@@ -7,10 +7,10 @@ use warnings;
 use Data::Miscellany 'value_of';
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
-use base qw(Class::Framework::Storable Class::Accessor::Complex);
+use base qw(Class::Scaffold::Storable Class::Accessor::Complex);
 
 
 __PACKAGE__->mk_scalar_accessors(qw(sth));
@@ -119,8 +119,6 @@ site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
 =head1 AUTHORS
 
 Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
-
-Heinz Ekker C<< ek@univie.ac.at >>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -6,10 +6,9 @@ use strict;
 use warnings;
 use DBI ':sql_types';
 use Error::Hierarchy::Util 'assert_defined';
-use Class::Framework::Exception::Util 'assert_object_type';
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use base 'Class::Accessor::Complex';
@@ -24,7 +23,6 @@ sub fetch {
     my $self = shift;
 
     assert_defined $self->sth, 'called without set statement handle.';
-    assert_object_type $self->sth, 'storage_statement';
 
     $self->sth->fetch;
 }
@@ -34,7 +32,6 @@ sub finish {
     my $self = shift;
 
     assert_defined $self->sth, 'called without set statement handle.';
-    assert_object_type $self->sth, 'storage_statement';
 
     $self->sth->finish;
 }
@@ -44,7 +41,6 @@ sub rows {
     my $self = shift;
 
     assert_defined $self->sth, 'called without set statement handle.';
-    assert_object_type $self->sth, 'storage_statement';
 
     $self->sth->rows;
 }
@@ -94,8 +90,6 @@ site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
 =head1 AUTHORS
 
 Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
-
-Heinz Ekker C<< ek@univie.ac.at >>
 
 =head1 COPYRIGHT AND LICENSE
 
