@@ -7,13 +7,15 @@ use warnings;
 use Data::Miscellany 'value_of';
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
-use base qw(Class::Scaffold::Storable Class::Accessor::Complex);
+use base qw(Class::Accessor::Complex Class::Accessor::Constructor);
 
 
-__PACKAGE__->mk_scalar_accessors(qw(sth));
+__PACKAGE__
+    ->mk_constructor
+    ->mk_scalar_accessors(qw(sth));
 
 
 # Define functions and class methods lest they be handled by AUTOLOAD, because

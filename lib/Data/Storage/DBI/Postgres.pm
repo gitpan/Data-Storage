@@ -7,7 +7,7 @@ use warnings;
 use Error::Hierarchy::Util 'assert_defined';
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 use base qw(Data::Storage::DBI Class::Accessor::Complex);
