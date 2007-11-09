@@ -8,7 +8,7 @@ use DBI ':sql_types';
 use Error::Hierarchy::Util 'assert_defined';
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 use base 'Class::Accessor::Complex';

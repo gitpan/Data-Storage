@@ -7,7 +7,7 @@ use warnings;
 use Class::Null;
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 # use Class::Null for methods not implemented here or in

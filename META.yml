@@ -18,8 +18,11 @@ no_index:
     - inc
     - t
 requires: 
+  Class::Accessor::Complex: 0
+  Class::Accessor::Constructor: 0
   Class::Null: 0
   DBI: 0
   Data::Miscellany: 0
+  Error::Hierarchy: 0
   perl: 5.6.0
-version: 0.03
+version: 0.04

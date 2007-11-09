@@ -1,12 +1,30 @@
-Revision history for Perl extension Data::Storage.
-
-0.03  Mi Nov  7 19:32:48 CET 2007
-    - removed another dependency on Class::Scaffold. Sigh...
-    - fixed inheritance and constructor in Data::Storage::Statement
-
-0.02  Mi Nov  7 18:49:30 CET 2007
-    - removed circular dependency on Class::Scaffold
-
-0.01  Mi Nov  7 11:39:00 CET 2007
-    - original version
-
+---
+global:
+  name: Data::Storage
+releases:
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - 'added requirements for Class::Accessor::Complex, Class::Accessor::Constructor and Error::Hierarchy'
+    date: 2007-11-09T16:21:12Z
+    tags:
+      - BUGFIX
+    version: 0.04
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - removed another dependency on Class::Scaffold. Sigh...
+      - fixed inheritance and constructor in Data::Storage::Statement
+    date: 2007-11-07T19:32:48+01:00
+    tags: []
+    version: 0.03
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - removed circular dependency on Class::Scaffold
+    date: 2007-11-07T18:49:30+01:00
+    tags: []
+    version: 0.02
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - original version
+    date: 2007-11-07T11:39:00+01:00
+    tags: []
+    version: 0.01
