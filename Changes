@@ -1,11 +1,25 @@
 ---
 global:
-  name: Data::Storage
+  name: Data-Storage
 releases:
   - author: 'Marcel Gruenauer <marcel@cpan.org>'
     changes:
+      - set the version to 0.05
+      - test
+    date: 2007-11-28T22:11:34Z
+    tags: []
+    version: 0.05
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
       - 'added requirements for Class::Accessor::Complex, Class::Accessor::Constructor and Error::Hierarchy'
-    date: 2007-11-09T16:21:12Z
+      - '.shipit: added Twitter step'
+      - 'Makefile.PL: added auto_install() and process_templates()'
+      - 'lib/*: converted to template'
+      - updated MANIFEST
+      - updated t/perlcriticrc
+      - 'Data::Storage::DBI: added dbhost, port and support for that in connect_string(). Moved this functionality out of Data::Storage::DBI::Postgres'
+      - test
+    date: 2007-11-28T22:07:12Z
     tags:
       - BUGFIX
     version: 0.04

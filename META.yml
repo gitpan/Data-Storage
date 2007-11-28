@@ -1,7 +1,7 @@
 --- 
-abstract: generic abstract storage mechanism
+abstract: ~
 author: 
-  - Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
+  - "{% ELSE %}"
 build_requires: 
   Test::Compile: 0
   Test::More: 0
@@ -25,4 +25,4 @@ requires:
   Data::Miscellany: 0
   Error::Hierarchy: 0
   perl: 5.6.0
-version: 0.04
+version: 0.05

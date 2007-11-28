@@ -17,16 +17,15 @@ use Error::Hierarchy::Internal::DBI;
 use Error ':try';
 
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 
 use base qw(Data::Storage Class::Accessor::Complex);
 
 
 __PACKAGE__->mk_scalar_accessors(qw(
-    dbh dbname dbuser dbpass AutoCommit RaiseError PrintError LongReadLen
-    HandleError schema_prefix
-));
+    dbh dbname dbuser dbpass dbhost port AutoCommit RaiseError PrintError
+    LongReadLen HandleError schema_prefix));
 
 
 
@@ -38,6 +37,21 @@ use constant DEFAULTS => (
     HandleError   => Error::Hierarchy::Internal::DBI->handler,
     schema_prefix => '',
 );
+
+
+# Subclasses that construct the connect string as given below can simply set
+# the connect_string_dbi_id; others have to override connect_string().
+
+use constant connect_string_dbi_id => '?';
+
+sub connect_string {
+    my $self = shift;
+    my $s = sprintf "dbi:%s:dbname=%s",
+        $self->connect_string_dbi_id, $self->dbname;
+    $s .= ';host=' . $self->dbhost if $self->dbhost;
+    $s .= ';port=' . $self->port   if $self->port;
+    $s;
+}
 
 
 sub get_connect_options {
@@ -205,30 +219,315 @@ sub signature {
 
 __END__
 
+
+
 =head1 NAME
 
-Data::Storage - generic abstract storage mechanism
+Data::Storage::DBI - generic abstract storage mechanism
 
 =head1 SYNOPSIS
 
-None yet (see below).
+    Data::Storage::DBI->new;
 
 =head1 DESCRIPTION
 
 None yet. This is an early release; fully functional, but undocumented. The
 next release will have more documentation.
 
+Data::Storage::DBI inherits from L<Data::Storage>.
+
+The superclass L<Data::Storage> defines these methods and functions:
+
+    new(), clear_log(), clear_rollback_mode(), create(), id(),
+    initialize_data(), is_abstract(), log(), log_clear(), rollback_mode(),
+    rollback_mode_clear(), rollback_mode_set(), set_rollback_mode(),
+    setup(), test_setup()
+
+The superclass L<Class::Accessor::Complex> defines these methods and
+functions:
+
+    carp(), cluck(), croak(), flatten(), mk_abstract_accessors(),
+    mk_array_accessors(), mk_boolean_accessors(),
+    mk_class_array_accessors(), mk_class_hash_accessors(),
+    mk_class_scalar_accessors(), mk_concat_accessors(),
+    mk_forward_accessors(), mk_hash_accessors(), mk_integer_accessors(),
+    mk_new(), mk_object_accessors(), mk_scalar_accessors(),
+    mk_set_accessors(), mk_singleton()
+
+The superclass L<Class::Accessor> defines these methods and functions:
+
+    _carp(), _croak(), _mk_accessors(), accessor_name_for(),
+    best_practice_accessor_name_for(), best_practice_mutator_name_for(),
+    follow_best_practice(), get(), make_accessor(), make_ro_accessor(),
+    make_wo_accessor(), mk_accessors(), mk_ro_accessors(),
+    mk_wo_accessors(), mutator_name_for(), set()
+
+The superclass L<Class::Accessor::Installer> defines these methods and
+functions:
+
+    install_accessor(), subname()
+
+=head1 METHODS
+
+=over 4
+
+=item AutoCommit
+
+    my $value = $obj->AutoCommit;
+    $obj->AutoCommit($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item AutoCommit_clear
+
+    $obj->AutoCommit_clear;
+
+Clears the value.
+
+=item HandleError
+
+    my $value = $obj->HandleError;
+    $obj->HandleError($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item HandleError_clear
+
+    $obj->HandleError_clear;
+
+Clears the value.
+
+=item LongReadLen
+
+    my $value = $obj->LongReadLen;
+    $obj->LongReadLen($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item LongReadLen_clear
+
+    $obj->LongReadLen_clear;
+
+Clears the value.
+
+=item PrintError
+
+    my $value = $obj->PrintError;
+    $obj->PrintError($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item PrintError_clear
+
+    $obj->PrintError_clear;
+
+Clears the value.
+
+=item RaiseError
+
+    my $value = $obj->RaiseError;
+    $obj->RaiseError($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item RaiseError_clear
+
+    $obj->RaiseError_clear;
+
+Clears the value.
+
+=item clear_AutoCommit
+
+    $obj->clear_AutoCommit;
+
+Clears the value.
+
+=item clear_HandleError
+
+    $obj->clear_HandleError;
+
+Clears the value.
+
+=item clear_LongReadLen
+
+    $obj->clear_LongReadLen;
+
+Clears the value.
+
+=item clear_PrintError
+
+    $obj->clear_PrintError;
+
+Clears the value.
+
+=item clear_RaiseError
+
+    $obj->clear_RaiseError;
+
+Clears the value.
+
+=item clear_dbh
+
+    $obj->clear_dbh;
+
+Clears the value.
+
+=item clear_dbhost
+
+    $obj->clear_dbhost;
+
+Clears the value.
+
+=item clear_dbname
+
+    $obj->clear_dbname;
+
+Clears the value.
+
+=item clear_dbpass
+
+    $obj->clear_dbpass;
+
+Clears the value.
+
+=item clear_dbuser
+
+    $obj->clear_dbuser;
+
+Clears the value.
+
+=item clear_port
+
+    $obj->clear_port;
+
+Clears the value.
+
+=item clear_schema_prefix
+
+    $obj->clear_schema_prefix;
+
+Clears the value.
+
+=item dbh
+
+    my $value = $obj->dbh;
+    $obj->dbh($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item dbh_clear
+
+    $obj->dbh_clear;
+
+Clears the value.
+
+=item dbhost
+
+    my $value = $obj->dbhost;
+    $obj->dbhost($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item dbhost_clear
+
+    $obj->dbhost_clear;
+
+Clears the value.
+
+=item dbname
+
+    my $value = $obj->dbname;
+    $obj->dbname($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item dbname_clear
+
+    $obj->dbname_clear;
+
+Clears the value.
+
+=item dbpass
+
+    my $value = $obj->dbpass;
+    $obj->dbpass($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item dbpass_clear
+
+    $obj->dbpass_clear;
+
+Clears the value.
+
+=item dbuser
+
+    my $value = $obj->dbuser;
+    $obj->dbuser($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item dbuser_clear
+
+    $obj->dbuser_clear;
+
+Clears the value.
+
+=item port
+
+    my $value = $obj->port;
+    $obj->port($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item port_clear
+
+    $obj->port_clear;
+
+Clears the value.
+
+=item schema_prefix
+
+    my $value = $obj->schema_prefix;
+    $obj->schema_prefix($value);
+
+A basic getter/setter method. If called without an argument, it returns the
+value. If called with a single argument, it sets the value.
+
+=item schema_prefix_clear
+
+    $obj->schema_prefix_clear;
+
+Clears the value.
+
+=back
+
 =head1 TAGS
 
 If you talk about this module in blogs, on del.icio.us or anywhere else,
 please use the C<datastorage> tag.
+
+=head1 VERSION 
+                   
+This document describes version 0.05 of L<Data::Storage::DBI>.
 
 =head1 BUGS AND LIMITATIONS
 
 No bugs have been reported.
 
 Please report any bugs or feature requests to
-C<bug-data-storage@rt.cpan.org>, or through the web interface at
+C<<bug-data-storage@rt.cpan.org>>, or through the web interface at
 L<http://rt.cpan.org>.
 
 =head1 INSTALLATION
@@ -241,16 +540,17 @@ The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
 site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
 Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007 by Marcel GrE<uuml>nauer
+Copyright 2004-2007 by Marcel GrE<uuml>nauer
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
+
 
 =cut
 
