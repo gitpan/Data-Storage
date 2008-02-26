@@ -7,7 +7,7 @@ use warnings;
 use Class::Null;
 
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 
 # use Class::Null for methods not implemented here or in
@@ -40,6 +40,14 @@ Data::Storage::Null - generic abstract storage mechanism
 None yet. This is an early release; fully functional, but undocumented. The
 next release will have more documentation.
 
+=head1 METHODS
+
+=over 4
+
+
+
+=back
+
 Data::Storage::Null inherits from L<Data::Storage::Memory>.
 
 The superclass L<Data::Storage::Memory> defines these methods and
@@ -49,16 +57,15 @@ functions:
 
 The superclass L<Data::Storage> defines these methods and functions:
 
-    new(), DEFAULTS(), clear_log(), clear_rollback_mode(), create(), id(),
-    initialize_data(), is_abstract(), lazy_connect(), log(), log_clear(),
-    rollback_mode(), rollback_mode_clear(), rollback_mode_set(),
-    set_rollback_mode(), setup(), signature(), test_setup()
+    new(), clear_log(), clear_rollback_mode(), create(), id(),
+    initialize_data(), lazy_connect(), log(), log_clear(), rollback_mode(),
+    rollback_mode_clear(), rollback_mode_set(), set_rollback_mode(),
+    setup(), signature(), test_setup()
 
 The superclass L<Class::Accessor::Complex> defines these methods and
 functions:
 
-    carp(), cluck(), croak(), flatten(), mk_abstract_accessors(),
-    mk_array_accessors(), mk_boolean_accessors(),
+    mk_abstract_accessors(), mk_array_accessors(), mk_boolean_accessors(),
     mk_class_array_accessors(), mk_class_hash_accessors(),
     mk_class_scalar_accessors(), mk_concat_accessors(),
     mk_forward_accessors(), mk_hash_accessors(), mk_integer_accessors(),
@@ -76,15 +83,37 @@ The superclass L<Class::Accessor> defines these methods and functions:
 The superclass L<Class::Accessor::Installer> defines these methods and
 functions:
 
-    install_accessor(), subname()
+    install_accessor()
 
-=head1 METHODS
+The superclass L<Class::Accessor::Constructor> defines these methods and
+functions:
 
-=over 4
+    _make_constructor(), mk_constructor(), mk_constructor_with_dirty(),
+    mk_singleton_constructor()
 
+The superclass L<Data::Inherited> defines these methods and functions:
 
+    every_hash(), every_list(), flush_every_cache_by_key()
 
-=back
+The superclass L<Class::Accessor::Constructor::Base> defines these methods
+and functions:
+
+    STORE(), clear_dirty(), clear_hygienic(), clear_unhygienic(),
+    contains_hygienic(), contains_unhygienic(), delete_hygienic(),
+    delete_unhygienic(), dirty(), dirty_clear(), dirty_set(),
+    elements_hygienic(), elements_unhygienic(), hygienic(),
+    hygienic_clear(), hygienic_contains(), hygienic_delete(),
+    hygienic_elements(), hygienic_insert(), hygienic_is_empty(),
+    hygienic_size(), insert_hygienic(), insert_unhygienic(),
+    is_empty_hygienic(), is_empty_unhygienic(), set_dirty(),
+    size_hygienic(), size_unhygienic(), unhygienic(), unhygienic_clear(),
+    unhygienic_contains(), unhygienic_delete(), unhygienic_elements(),
+    unhygienic_insert(), unhygienic_is_empty(), unhygienic_size()
+
+The superclass L<Tie::StdHash> defines these methods and functions:
+
+    CLEAR(), DELETE(), EXISTS(), FETCH(), FIRSTKEY(), NEXTKEY(), SCALAR(),
+    TIEHASH()
 
 =head1 TAGS
 
@@ -93,7 +122,7 @@ please use the C<datastorage> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.05 of L<Data::Storage::Null>.
+This document describes version 0.06 of L<Data::Storage::Null>.
 
 =head1 BUGS AND LIMITATIONS
 
@@ -119,7 +148,7 @@ Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004-2007 by Marcel GrE<uuml>nauer
+Copyright 2004-2008 by Marcel GrE<uuml>nauer
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
