@@ -7,7 +7,7 @@ use warnings;
 use Class::Null;
 
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 # use Class::Null for methods not implemented here or in
@@ -122,7 +122,7 @@ please use the C<datastorage> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.06 of L<Data::Storage::Null>.
+This document describes version 0.07 of L<Data::Storage::Null>.
 
 =head1 BUGS AND LIMITATIONS
 

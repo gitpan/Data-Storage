@@ -7,7 +7,7 @@ use warnings;
 use Class::Null;
 
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 use base qw(
@@ -232,7 +232,7 @@ please use the C<datastorage> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.06 of L<Data::Storage>.
+This document describes version 0.07 of L<Data::Storage>.
 
 =head1 BUGS AND LIMITATIONS
 

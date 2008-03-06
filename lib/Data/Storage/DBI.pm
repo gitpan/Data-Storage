@@ -17,7 +17,7 @@ use Error::Hierarchy::Internal::DBI;
 use Error ':try';
 
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 use base qw(Data::Storage Class::Accessor::Complex);
@@ -131,6 +131,10 @@ sub disconnect {
 
 sub rollback {
     my $self = shift;
+
+    # avoid "rollback ineffective with AutoCommit enabled" error
+    return if $self->AutoCommit;
+
     $self->dbh->rollback;
     $self->log->debug('did rollback');
 }
@@ -139,6 +143,10 @@ sub rollback {
 sub commit {
     my $self = shift;
     return if $self->rollback_mode;
+
+    # avoid "commit ineffective with AutoCommit enabled" error
+    return if $self->AutoCommit;
+
     $self->dbh->commit;
     $self->log->debug('did commit');
 }
@@ -549,7 +557,7 @@ please use the C<datastorage> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.06 of L<Data::Storage::DBI>.
+This document describes version 0.07 of L<Data::Storage::DBI>.
 
 =head1 BUGS AND LIMITATIONS
 

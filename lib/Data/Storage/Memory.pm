@@ -6,7 +6,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 use base 'Data::Storage';
@@ -128,7 +128,7 @@ please use the C<datastorage> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.06 of L<Data::Storage::Memory>.
+This document describes version 0.07 of L<Data::Storage::Memory>.
 
 =head1 BUGS AND LIMITATIONS
 

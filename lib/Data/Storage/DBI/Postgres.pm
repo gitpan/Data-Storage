@@ -7,7 +7,7 @@ use warnings;
 use Error::Hierarchy::Util 'assert_defined';
 
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 use base qw(Data::Storage::DBI Class::Accessor::Complex);
@@ -187,7 +187,7 @@ please use the C<datastorage> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.06 of L<Data::Storage::DBI::Postgres>.
+This document describes version 0.07 of L<Data::Storage::DBI::Postgres>.
 
 =head1 BUGS AND LIMITATIONS
 

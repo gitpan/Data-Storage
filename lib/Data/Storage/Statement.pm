@@ -7,7 +7,7 @@ use warnings;
 use Data::Miscellany 'value_of';
 
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 use base qw(Class::Accessor::Complex Class::Accessor::Constructor);
@@ -197,7 +197,7 @@ please use the C<datastorage> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.06 of L<Data::Storage::Statement>.
+This document describes version 0.07 of L<Data::Storage::Statement>.
 
 =head1 BUGS AND LIMITATIONS
 

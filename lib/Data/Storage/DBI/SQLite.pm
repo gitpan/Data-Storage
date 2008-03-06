@@ -6,7 +6,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 use base 'Data::Storage::DBI';
@@ -159,7 +159,7 @@ please use the C<datastorage> tag.
 
 =head1 VERSION 
                    
-This document describes version 0.06 of L<Data::Storage::DBI::SQLite>.
+This document describes version 0.07 of L<Data::Storage::DBI::SQLite>.
 
 =head1 BUGS AND LIMITATIONS
 
