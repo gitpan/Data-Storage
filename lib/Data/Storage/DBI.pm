@@ -17,7 +17,7 @@ use Error::Hierarchy::Internal::DBI;
 use Error ':try';
 
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 
 use base qw(Data::Storage Class::Accessor::Complex);
@@ -71,9 +71,13 @@ sub is_connected {
          ref($self->dbh) eq 'DBI::db'
       || ref($self->dbh) eq 'Apache::DBI::db'
     );
-    $self->log->debug('storage [%s] is %s',
-        $self->dbname,
-        $is_connected ? 'connected' : 'not connected');
+
+    # No logging unless it's necessary - this is called often and is expensive
+
+    # $self->log->debug('storage [%s] is %s',
+    #     $self->dbname,
+    #     $is_connected ? 'connected' : 'not connected');
+
     $is_connected;
 }
 
@@ -131,10 +135,6 @@ sub disconnect {
 
 sub rollback {
     my $self = shift;
-
-    # avoid "rollback ineffective with AutoCommit enabled" error
-    return if $self->AutoCommit;
-
     $self->dbh->rollback;
     $self->log->debug('did rollback');
 }
@@ -187,6 +187,18 @@ sub prepare {
     my ($self, $query) = @_;
     Data::Storage::Statement->new(
         sth => $self->dbh->prepare($self->rewrite_query($query))
+    );
+}
+
+
+sub prepare_named {
+    my ($self, $name, $query) = @_;
+
+    our %cache;
+    $cache{$name} ||= $self->rewrite_query($query);
+
+    Data::Storage::Statement->new(
+        sth => $self->dbh->prepare($cache{$name})
     );
 }
 
@@ -554,10 +566,6 @@ The superclass L<Tie::StdHash> defines these methods and functions:
 
 If you talk about this module in blogs, on del.icio.us or anywhere else,
 please use the C<datastorage> tag.
-
-=head1 VERSION 
-                   
-This document describes version 0.07 of L<Data::Storage::DBI>.
 
 =head1 BUGS AND LIMITATIONS
 
