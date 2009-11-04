@@ -1,24 +1,15 @@
 package Data::Storage::Filesystem::Record;
-
 use strict;
 use warnings;
-
-
-our $VERSION = '0.09';
-
-
+our $VERSION = '0.10';
 use base 'Class::Accessor::Complex';
-
-
+#<<<
 __PACKAGE__
     ->mk_new
     ->mk_boolean_accessors(qw(stored))
     ->mk_scalar_accessors(qw(filename data mode));
-
-
+#>>>
 1;
-
-
 __END__
 
 
@@ -40,7 +31,7 @@ next release will have more documentation.
 
 =over 4
 
-=item new
+=item C<new>
 
     my $obj = Data::Storage::Filesystem::Record->new;
     my $obj = Data::Storage::Filesystem::Record->new(%args);
@@ -51,31 +42,31 @@ component is initialized by calling the method of the same name with the given
 value. If called with a single hash reference, it is dereferenced and its
 key/value pairs are set as described before.
 
-=item clear_data
+=item C<clear_data>
 
     $obj->clear_data;
 
 Clears the value.
 
-=item clear_filename
+=item C<clear_filename>
 
     $obj->clear_filename;
 
 Clears the value.
 
-=item clear_mode
+=item C<clear_mode>
 
     $obj->clear_mode;
 
 Clears the value.
 
-=item clear_stored
+=item C<clear_stored>
 
     $obj->clear_stored;
 
 Clears the boolean value by setting it to 0.
 
-=item data
+=item C<data>
 
     my $value = $obj->data;
     $obj->data($value);
@@ -83,13 +74,13 @@ Clears the boolean value by setting it to 0.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item data_clear
+=item C<data_clear>
 
     $obj->data_clear;
 
 Clears the value.
 
-=item filename
+=item C<filename>
 
     my $value = $obj->filename;
     $obj->filename($value);
@@ -97,13 +88,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item filename_clear
+=item C<filename_clear>
 
     $obj->filename_clear;
 
 Clears the value.
 
-=item mode
+=item C<mode>
 
     my $value = $obj->mode;
     $obj->mode($value);
@@ -111,19 +102,19 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item mode_clear
+=item C<mode_clear>
 
     $obj->mode_clear;
 
 Clears the value.
 
-=item set_stored
+=item C<set_stored>
 
     $obj->set_stored;
 
 Sets the boolean value to 1.
 
-=item stored
+=item C<stored>
 
     $obj->stored($value);
     my $value = $obj->stored;
@@ -132,13 +123,13 @@ If called without an argument, returns the boolean value (0 or 1). If called
 with an argument, it normalizes it to the boolean value. That is, the values
 0, undef and the empty string become 0; everything else becomes 1.
 
-=item stored_clear
+=item C<stored_clear>
 
     $obj->stored_clear;
 
 Clears the boolean value by setting it to 0.
 
-=item stored_set
+=item C<stored_set>
 
     $obj->stored_set;
 
@@ -187,7 +178,7 @@ See perlmodinstall for information and options on installing Perl modules.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
+site near you. Or see L<http://search.cpan.org/dist/Data-Storage/>.
 
 =head1 AUTHORS
 
@@ -195,7 +186,7 @@ Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004-2008 by the authors.
+Copyright 2004-2009 by the authors.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

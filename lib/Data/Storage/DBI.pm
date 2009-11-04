@@ -1,12 +1,9 @@
 package Data::Storage::DBI;
 
-# $Id: DBI.pm 13653 2007-10-22 09:11:20Z gr $
-#
 # Mixin class for storages based on a transactional RDBMS. When deriving from
 # this class, put it before Data::Storage in 'use base' so that its
 # connect() and disconnect() methods are found before the generic ones from
 # Data::Storage.
-
 use strict;
 use warnings;
 use DBI ':sql_types';
@@ -15,20 +12,13 @@ use Data::Storage::Statement;
 use Error::Hierarchy::Util 'assert_defined';
 use Error::Hierarchy::Internal::DBI;
 use Error ':try';
-
-
-our $VERSION = '0.09';
-
-
+our $VERSION = '0.10';
 use base qw(Data::Storage Class::Accessor::Complex);
-
-
-__PACKAGE__->mk_scalar_accessors(qw(
-    dbh dbname dbuser dbpass dbhost port AutoCommit RaiseError PrintError
-    LongReadLen HandleError schema_prefix));
-
-
-
+__PACKAGE__->mk_scalar_accessors(
+    qw(
+      dbh dbname dbuser dbpass dbhost port AutoCommit RaiseError PrintError
+      LongReadLen HandleError schema_prefix)
+);
 use constant DEFAULTS => (
     AutoCommit    => 0,
     RaiseError    => 1,
@@ -38,90 +28,73 @@ use constant DEFAULTS => (
     schema_prefix => '',
 );
 
-
 # Subclasses that construct the connect string as given below can simply set
 # the connect_string_dbi_id; others have to override connect_string().
-
 use constant connect_string_dbi_id => '?';
 
 sub connect_string {
     my $self = shift;
-    my $s = sprintf "dbi:%s:dbname=%s",
-        $self->connect_string_dbi_id, $self->dbname;
+    my $s    = sprintf "dbi:%s:dbname=%s",
+      $self->connect_string_dbi_id, $self->dbname;
     $s .= ';host=' . $self->dbhost if $self->dbhost;
     $s .= ';port=' . $self->port   if $self->port;
     $s;
 }
 
-
 sub get_connect_options {
     my $self = shift;
-    { RaiseError  => $self->RaiseError,
-      PrintError  => $self->PrintError,
-      AutoCommit  => $self->AutoCommit,
-      LongReadLen => $self->LongReadLen,
-      HandleError => $self->HandleError,
-    }
+    {   RaiseError  => $self->RaiseError,
+        PrintError  => $self->PrintError,
+        AutoCommit  => $self->AutoCommit,
+        LongReadLen => $self->LongReadLen,
+        HandleError => $self->HandleError,
+    };
 }
 
-
 sub is_connected {
-    my $self = shift;
-    my $is_connected = $self->dbh && (
-         ref($self->dbh) eq 'DBI::db'
-      || ref($self->dbh) eq 'Apache::DBI::db'
-    );
+    my $self         = shift;
+    my $is_connected = $self->dbh
+      && ( ref($self->dbh) eq 'DBI::db'
+        || ref($self->dbh) eq 'Apache::DBI::db');
 
     # No logging unless it's necessary - this is called often and is expensive
-
     # $self->log->debug('storage [%s] is %s',
     #     $self->dbname,
     #     $is_connected ? 'connected' : 'not connected');
-
     $is_connected;
 }
 
-
 sub connect {
     my $self = shift;
-
     return if $self->is_connected;
-
     assert_defined $self->$_, sprintf "called without %s argument.", $_
-        for qw/dbname dbuser dbpass/;
-
+      for qw/dbname dbuser dbpass/;
     $self->log->debug('connecting to storage [%s] as [%s/%s]',
-        $self->dbname,
-        $self->dbuser,
-        $self->dbpass
-    );
-
+        $self->dbname, $self->dbuser, $self->dbpass);
     try {
-        $self->dbh(DBI->connect(
-            $self->connect_string,
-            $self->dbuser,
-            $self->dbpass,
-            $self->get_connect_options,
-        ));
-    } catch Error with {
+        $self->dbh(
+            DBI->connect(
+                $self->connect_string, $self->dbuser,
+                $self->dbpass,         $self->get_connect_options,
+            )
+        );
+    }
+    catch Error with {
         my $E = shift;
-
         $! = 0;
         if ($self->dbh && ref($self->dbh) eq 'DBI::db') {
             $self->set_rollback_mode;
             $self->disconnect;
         }
-
         throw Error::Hierarchy::Internal::CustomMessage(
-            custom_message => sprintf "couldn't connect to storage [%s (%s/%s)]: %s",
-                $self->dbname,
-                $self->dbuser,
-                $self->dbpass,
-                $E
+            custom_message => sprintf
+              "couldn't connect to storage [%s (user %s)]: %s",
+            $self->dbname,
+            $self->dbuser,
+            $E
         );
     };
 }
-
 
 sub disconnect {
     my $self = shift;
@@ -132,13 +105,11 @@ sub disconnect {
     $self->clear_dbh;
 }
 
-
 sub rollback {
     my $self = shift;
     $self->dbh->rollback;
     $self->log->debug('did rollback');
 }
-
 
 sub commit {
     my $self = shift;
@@ -146,18 +117,15 @@ sub commit {
 
     # avoid "commit ineffective with AutoCommit enabled" error
     return if $self->AutoCommit;
-
     $self->dbh->commit;
     $self->log->debug('did commit');
 }
-
 
 sub lazy_connect {
     my $self = shift;
     return if $self->is_connected;
     $self->dbh(Data::Storage::DBI::Unrealized->new(callback => $self));
 }
-
 
 # Statement handles are wrapped in a special class that forwards most method
 # calls directly to the statement handle but does some special things like
@@ -182,61 +150,43 @@ sub lazy_connect {
 # This way we can have generic statements that still work in different
 # database schemata. It's a little bit like generics in C++ and Java except
 # that here we don't abstract over types, but schema names.
-
 sub prepare {
     my ($self, $query) = @_;
     Data::Storage::Statement->new(
-        sth => $self->dbh->prepare($self->rewrite_query($query))
-    );
+        sth => $self->dbh->prepare($self->rewrite_query($query)));
 }
-
 
 sub prepare_named {
     my ($self, $name, $query) = @_;
-
     our %cache;
     $cache{$name} ||= $self->rewrite_query($query);
-
-    Data::Storage::Statement->new(
-        sth => $self->dbh->prepare($cache{$name})
-    );
+    Data::Storage::Statement->new(sth => $self->dbh->prepare($cache{$name}));
 }
-
 
 # Do nothing here; subclasses can override it to rename tables and columns,
 # for example. rewrite_query() is for a specific storage implementation;
 # rewrite_query_for_dbd() is for rewriting queries depending on the database
 # type. For example, the current user is called 'user' in Oracle and
 # 'CURRENT_USER' in PostgreSQL.
-
 sub rewrite_query {
     my ($self, $query) = @_;
-
     $query = $self->rewrite_query_for_dbd($query);
-
     my $prefix = $self->schema_prefix;
     $query =~ s/<P>/$prefix/g;
-
     $query;
 }
-
 
 sub rewrite_query_for_dbd {
     my ($self, $query) = @_;
     $query;
 }
 
-
 sub signature {
     my $self = shift;
     sprintf "%s,dbname=%s,dbuser=%s",
-        $self->SUPER::signature(), $self->dbname, $self->dbuser;
+      $self->SUPER::signature(), $self->dbname, $self->dbuser;
 }
-
-
 1;
-
-
 __END__
 
 
@@ -258,7 +208,7 @@ next release will have more documentation.
 
 =over 4
 
-=item AutoCommit
+=item C<AutoCommit>
 
     my $value = $obj->AutoCommit;
     $obj->AutoCommit($value);
@@ -266,13 +216,13 @@ next release will have more documentation.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item AutoCommit_clear
+=item C<AutoCommit_clear>
 
     $obj->AutoCommit_clear;
 
 Clears the value.
 
-=item HandleError
+=item C<HandleError>
 
     my $value = $obj->HandleError;
     $obj->HandleError($value);
@@ -280,13 +230,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item HandleError_clear
+=item C<HandleError_clear>
 
     $obj->HandleError_clear;
 
 Clears the value.
 
-=item LongReadLen
+=item C<LongReadLen>
 
     my $value = $obj->LongReadLen;
     $obj->LongReadLen($value);
@@ -294,13 +244,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item LongReadLen_clear
+=item C<LongReadLen_clear>
 
     $obj->LongReadLen_clear;
 
 Clears the value.
 
-=item PrintError
+=item C<PrintError>
 
     my $value = $obj->PrintError;
     $obj->PrintError($value);
@@ -308,13 +258,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item PrintError_clear
+=item C<PrintError_clear>
 
     $obj->PrintError_clear;
 
 Clears the value.
 
-=item RaiseError
+=item C<RaiseError>
 
     my $value = $obj->RaiseError;
     $obj->RaiseError($value);
@@ -322,85 +272,85 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item RaiseError_clear
+=item C<RaiseError_clear>
 
     $obj->RaiseError_clear;
 
 Clears the value.
 
-=item clear_AutoCommit
+=item C<clear_AutoCommit>
 
     $obj->clear_AutoCommit;
 
 Clears the value.
 
-=item clear_HandleError
+=item C<clear_HandleError>
 
     $obj->clear_HandleError;
 
 Clears the value.
 
-=item clear_LongReadLen
+=item C<clear_LongReadLen>
 
     $obj->clear_LongReadLen;
 
 Clears the value.
 
-=item clear_PrintError
+=item C<clear_PrintError>
 
     $obj->clear_PrintError;
 
 Clears the value.
 
-=item clear_RaiseError
+=item C<clear_RaiseError>
 
     $obj->clear_RaiseError;
 
 Clears the value.
 
-=item clear_dbh
+=item C<clear_dbh>
 
     $obj->clear_dbh;
 
 Clears the value.
 
-=item clear_dbhost
+=item C<clear_dbhost>
 
     $obj->clear_dbhost;
 
 Clears the value.
 
-=item clear_dbname
+=item C<clear_dbname>
 
     $obj->clear_dbname;
 
 Clears the value.
 
-=item clear_dbpass
+=item C<clear_dbpass>
 
     $obj->clear_dbpass;
 
 Clears the value.
 
-=item clear_dbuser
+=item C<clear_dbuser>
 
     $obj->clear_dbuser;
 
 Clears the value.
 
-=item clear_port
+=item C<clear_port>
 
     $obj->clear_port;
 
 Clears the value.
 
-=item clear_schema_prefix
+=item C<clear_schema_prefix>
 
     $obj->clear_schema_prefix;
 
 Clears the value.
 
-=item dbh
+=item C<dbh>
 
     my $value = $obj->dbh;
     $obj->dbh($value);
@@ -408,13 +358,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item dbh_clear
+=item C<dbh_clear>
 
     $obj->dbh_clear;
 
 Clears the value.
 
-=item dbhost
+=item C<dbhost>
 
     my $value = $obj->dbhost;
     $obj->dbhost($value);
@@ -422,13 +372,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item dbhost_clear
+=item C<dbhost_clear>
 
     $obj->dbhost_clear;
 
 Clears the value.
 
-=item dbname
+=item C<dbname>
 
     my $value = $obj->dbname;
     $obj->dbname($value);
@@ -436,13 +386,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item dbname_clear
+=item C<dbname_clear>
 
     $obj->dbname_clear;
 
 Clears the value.
 
-=item dbpass
+=item C<dbpass>
 
     my $value = $obj->dbpass;
     $obj->dbpass($value);
@@ -450,13 +400,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item dbpass_clear
+=item C<dbpass_clear>
 
     $obj->dbpass_clear;
 
 Clears the value.
 
-=item dbuser
+=item C<dbuser>
 
     my $value = $obj->dbuser;
     $obj->dbuser($value);
@@ -464,13 +414,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item dbuser_clear
+=item C<dbuser_clear>
 
     $obj->dbuser_clear;
 
 Clears the value.
 
-=item port
+=item C<port>
 
     my $value = $obj->port;
     $obj->port($value);
@@ -478,13 +428,13 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item port_clear
+=item C<port_clear>
 
     $obj->port_clear;
 
 Clears the value.
 
-=item schema_prefix
+=item C<schema_prefix>
 
     my $value = $obj->schema_prefix;
     $obj->schema_prefix($value);
@@ -492,7 +442,7 @@ Clears the value.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item schema_prefix_clear
+=item C<schema_prefix_clear>
 
     $obj->schema_prefix_clear;
 
@@ -564,7 +514,7 @@ The superclass L<Tie::StdHash> defines these methods and functions:
 
 =head1 TAGS
 
-If you talk about this module in blogs, on del.icio.us or anywhere else,
+If you talk about this module in blogs, on L<delicious.com> or anywhere else,
 please use the C<datastorage> tag.
 
 =head1 BUGS AND LIMITATIONS
@@ -583,7 +533,7 @@ See perlmodinstall for information and options on installing Perl modules.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
+site near you. Or see L<http://search.cpan.org/dist/Data-Storage/>.
 
 =head1 AUTHOR
 
@@ -591,7 +541,7 @@ Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004-2008 by Marcel GrE<uuml>nauer
+Copyright 2004-2009 by Marcel GrE<uuml>nauer
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

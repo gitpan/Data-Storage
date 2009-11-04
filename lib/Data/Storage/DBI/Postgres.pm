@@ -1,29 +1,18 @@
 package Data::Storage::DBI::Postgres;
-
-# $Id$
-
 use strict;
 use warnings;
 use Error::Hierarchy::Util 'assert_defined';
-
-
-our $VERSION = '0.09';
-
-
+our $VERSION = '0.10';
 use base qw(Data::Storage::DBI Class::Accessor::Complex);
-
-
 use constant connect_string_dbi_id => 'Pg';
-
 
 sub connect {
     my $self = shift;
-
     $self->SUPER::connect(@_);
-    # FIXME: is this the right place and the right way for setting utf-8 encoding?
+
+  # FIXME: is this the right place and the right way for setting utf-8 encoding?
     $self->dbh->{pg_enable_utf8} = 1;
 }
-
 
 sub test_setup {
     my $self = shift;
@@ -31,21 +20,17 @@ sub test_setup {
     $self->disconnect;
 }
 
-
 sub last_id {
     my ($self, $sequence_name) = @_;
-    $self->dbh->last_insert_id(undef,undef,undef,undef,
-			       {sequence => $sequence_name});
+    $self->dbh->last_insert_id(undef, undef, undef, undef,
+        { sequence => $sequence_name });
 }
-
 
 sub next_id {
     my ($self, $sequence_name) = @_;
-
     unless ($sequence_name) {
-	throw Error::Hierarchy::Internal::ValueUndefined;
+        throw Error::Hierarchy::Internal::ValueUndefined;
     }
-
     my $sth = $self->prepare("
 	SELECT NEXTVAL('$sequence_name')");
     $sth->execute;
@@ -54,30 +39,21 @@ sub next_id {
     $next_id;
 }
 
-
 sub trace {
     my $self = shift;
     $self->dbh->trace(@_);
 }
 
-
 # Database type-specifc rewrites
-
 sub rewrite_query_for_dbd {
     my ($self, $query) = @_;
-
     $query =~ s/<USER>/CURRENT_USER/g;
     $query =~ s/<NOW>/NOW()/g;
     $query =~ s/<NEXTVAL>\((.*?)\)/NEXTVAL('$1')/g;
     $query =~ s/<BOOL>\((.*?)\)/expression::bool($1)/g;
-
     $query;
 }
-
-
 1;
-
-
 __END__
 
 
@@ -195,7 +171,7 @@ See perlmodinstall for information and options on installing Perl modules.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
+site near you. Or see L<http://search.cpan.org/dist/Data-Storage/>.
 
 =head1 AUTHORS
 
@@ -203,7 +179,7 @@ Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004-2008 by the authors.
+Copyright 2004-2009 by the authors.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

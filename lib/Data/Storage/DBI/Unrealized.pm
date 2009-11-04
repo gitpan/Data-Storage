@@ -1,25 +1,15 @@
 package Data::Storage::DBI::Unrealized;
-
-# $Id$
-
 use strict;
 use warnings;
-
-
-our $VERSION = '0.09';
-
-
+our $VERSION = '0.10';
 use base 'Class::Accessor::Complex';
-
-
+#<<<
 __PACKAGE__
     ->mk_new
     ->mk_scalar_accessors(qw(callback));
-
-
-use constant DEFAULTS => ();
+#>>>
+use constant DEFAULTS               => ();
 use constant FIRST_CONSTRUCTOR_ARGS => ();
-
 
 sub AUTOLOAD {
     my $self = shift;
@@ -27,11 +17,7 @@ sub AUTOLOAD {
     $self->callback->connect;
     $self->callback->dbh->$method(@_);
 }
-
-
 1;
-
-
 __END__
 
 
@@ -53,7 +39,7 @@ next release will have more documentation.
 
 =over 4
 
-=item new
+=item C<new>
 
     my $obj = Data::Storage::DBI::Unrealized->new;
     my $obj = Data::Storage::DBI::Unrealized->new(%args);
@@ -64,7 +50,7 @@ component is initialized by calling the method of the same name with the given
 value. If called with a single hash reference, it is dereferenced and its
 key/value pairs are set as described before.
 
-=item callback
+=item C<callback>
 
     my $value = $obj->callback;
     $obj->callback($value);
@@ -72,13 +58,13 @@ key/value pairs are set as described before.
 A basic getter/setter method. If called without an argument, it returns the
 value. If called with a single argument, it sets the value.
 
-=item callback_clear
+=item C<callback_clear>
 
     $obj->callback_clear;
 
 Clears the value.
 
-=item clear_callback
+=item C<clear_callback>
 
     $obj->clear_callback;
 
@@ -126,7 +112,7 @@ See perlmodinstall for information and options on installing Perl modules.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
+site near you. Or see L<http://search.cpan.org/dist/Data-Storage/>.
 
 =head1 AUTHORS
 
@@ -134,7 +120,7 @@ Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004-2008 by the authors.
+Copyright 2004-2009 by the authors.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
