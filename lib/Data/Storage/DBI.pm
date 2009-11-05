@@ -12,7 +12,7 @@ use Data::Storage::Statement;
 use Error::Hierarchy::Util 'assert_defined';
 use Error::Hierarchy::Internal::DBI;
 use Error ':try';
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 use base qw(Data::Storage Class::Accessor::Complex);
 __PACKAGE__->mk_scalar_accessors(
     qw(
@@ -160,7 +160,9 @@ sub prepare_named {
     my ($self, $name, $query) = @_;
     our %cache;
     $cache{$name} ||= $self->rewrite_query($query);
-    Data::Storage::Statement->new(sth => $self->dbh->prepare($cache{$name}));
+    Data::Storage::Statement->new(
+        sth => $self->dbh->prepare_cached($cache{$name})
+    );
 }
 
 # Do nothing here; subclasses can override it to rename tables and columns,
