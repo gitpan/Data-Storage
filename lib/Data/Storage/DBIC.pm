@@ -1,15 +1,16 @@
-package Data::Storage::DBIC;
-use warnings;
+use 5.008;
 use strict;
+use warnings;
+
+package Data::Storage::DBIC;
+our $VERSION = '1.100850';
+# ABSTRACT: Base class for DBIx::Class-based storages
 use Error::Hierarchy::Util qw(assert_defined load_class);
 use Error ':try';
-our $VERSION = '0.11';
-use base 'Data::Storage::DBI';
-#<<<
+use parent 'Data::Storage::DBI';
 __PACKAGE__
     ->mk_scalar_accessors(qw(schema))
     ->mk_abstract_accessors(qw(SCHEMA_CLASS));
-#>>>
 
 sub is_connected {
     my $self         = shift;
@@ -88,3 +89,78 @@ sub lazy_connect {
     $self->connect(@_);
 }
 1;
+
+
+__END__
+=pod
+
+=head1 NAME
+
+Data::Storage::DBIC - Base class for DBIx::Class-based storages
+
+=head1 VERSION
+
+version 1.100850
+
+=head1 METHODS
+
+=head2 commit
+
+FIXME
+
+=head2 connect
+
+FIXME
+
+=head2 disconnect
+
+FIXME
+
+=head2 is_connected
+
+FIXME
+
+=head2 lazy_connect
+
+FIXME
+
+=head2 rollback
+
+FIXME
+
+=head1 INSTALLATION
+
+See perlmodinstall for information and options on installing Perl modules.
+
+=head1 BUGS AND LIMITATIONS
+
+No bugs have been reported.
+
+Please report any bugs or feature requests through the web interface at
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
+
+=head1 AVAILABILITY
+
+The latest version of this module is available from the Comprehensive Perl
+Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
+site near you, or see
+L<http://search.cpan.org/dist/Data-Storage/>.
+
+The development version lives at
+L<http://github.com/hanekomu/Data-Storage/>.
+Instead of sending patches, please fork this project using the standard git
+and github infrastructure.
+
+=head1 AUTHOR
+
+  Marcel Gruenauer <marcel@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2004 by Marcel Gruenauer.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
+

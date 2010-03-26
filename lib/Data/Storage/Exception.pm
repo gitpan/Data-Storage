@@ -2,22 +2,10 @@ use 5.008;
 use strict;
 use warnings;
 
-package Data::Storage::DBI::Unrealized;
+package Data::Storage::Exception;
 our $VERSION = '1.100850';
-# ABSTRACT: Proxy class for lazy DBI connections
-use parent 'Class::Accessor::Complex';
-__PACKAGE__
-    ->mk_new
-    ->mk_scalar_accessors(qw(callback));
-use constant DEFAULTS               => ();
-use constant FIRST_CONSTRUCTOR_ARGS => ();
-
-sub AUTOLOAD {
-    my $self = shift;
-    (my $method = our $AUTOLOAD) =~ s/.*://;
-    $self->callback->connect;
-    $self->callback->dbh->$method(@_);
-}
+# ABSTRACT: Base class for storage exceptions
+use parent qw(Error::Hierarchy Class::Accessor::Complex);
 1;
 
 
@@ -26,7 +14,7 @@ __END__
 
 =head1 NAME
 
-Data::Storage::DBI::Unrealized - Proxy class for lazy DBI connections
+Data::Storage::Exception - Base class for storage exceptions
 
 =head1 VERSION
 

@@ -1,20 +1,20 @@
-package Data::Storage;
-use 5.006;
+use 5.008;
 use strict;
 use warnings;
+
+package Data::Storage;
+our $VERSION = '1.100850';
+# ABSTRACT: Base class for storages
 use Class::Null;
-our $VERSION = '0.11';
-use base qw(
+use parent qw(
   Class::Accessor::Complex
   Class::Accessor::Constructor
 );
-#<<<
 __PACKAGE__
     ->mk_constructor
     ->mk_boolean_accessors(qw(rollback_mode))
     ->mk_abstract_accessors(qw(create initialize_data))
     ->mk_scalar_accessors(qw(log));
-#>>>
 use constant is_abstract => 1;
 use constant DEFAULTS => (log => Class::Null->new,);
 
@@ -56,173 +56,82 @@ sub disconnect { }
 # see Data::Storage::DBI for a way to use lazy connections.
 sub lazy_connect { }
 1;
+
+
 __END__
+=pod
 
 =head1 NAME
 
-Data::Storage - Generic abstract storage mechanism
+Data::Storage - Base class for storages
 
-=head1 SYNOPSIS
+=head1 VERSION
 
-    Data::Storage->new;
-
-=head1 DESCRIPTION
-
-None yet. This is an early release; fully functional, but undocumented. The
-next release will have more documentation.
+version 1.100850
 
 =head1 METHODS
 
-=over 4
+=head2 connect
 
-=item C<new>
+FIXME
 
-    my $obj = Data::Storage->new;
-    my $obj = Data::Storage->new(%args);
+=head2 disconnect
 
-Creates and returns a new object. The constructor will accept as arguments a
-list of pairs, from component name to initial value. For each pair, the named
-component is initialized by calling the method of the same name with the given
-value. If called with a single hash reference, it is dereferenced and its
-key/value pairs are set as described before.
+FIXME
 
-=item C<clear_log>
+=head2 id
 
-    $obj->clear_log;
+FIXME
 
-Clears the value.
+=head2 lazy_connect
 
-=item C<clear_rollback_mode>
+FIXME
 
-    $obj->clear_rollback_mode;
+=head2 setup
 
-Clears the boolean value by setting it to 0.
+FIXME
 
-=item C<log>
+=head2 signature
 
-    my $value = $obj->log;
-    $obj->log($value);
+FIXME
 
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
+=head2 test_setup
 
-=item C<log_clear>
+FIXME
 
-    $obj->log_clear;
+=head1 INSTALLATION
 
-Clears the value.
-
-=item C<rollback_mode>
-
-    $obj->rollback_mode($value);
-    my $value = $obj->rollback_mode;
-
-If called without an argument, returns the boolean value (0 or 1). If called
-with an argument, it normalizes it to the boolean value. That is, the values
-0, undef and the empty string become 0; everything else becomes 1.
-
-=item C<rollback_mode_clear>
-
-    $obj->rollback_mode_clear;
-
-Clears the boolean value by setting it to 0.
-
-=item C<rollback_mode_set>
-
-    $obj->rollback_mode_set;
-
-Sets the boolean value to 1.
-
-=item C<set_rollback_mode>
-
-    $obj->set_rollback_mode;
-
-Sets the boolean value to 1.
-
-=back
-
-Data::Storage inherits from L<Class::Accessor::Complex>,
-L<Class::Accessor::Constructor>, and L<Class::Accessor::Constructor::Base>.
-
-The superclass L<Class::Accessor::Complex> defines these methods and
-functions:
-
-    mk_abstract_accessors(), mk_array_accessors(), mk_boolean_accessors(),
-    mk_class_array_accessors(), mk_class_hash_accessors(),
-    mk_class_scalar_accessors(), mk_concat_accessors(),
-    mk_forward_accessors(), mk_hash_accessors(), mk_integer_accessors(),
-    mk_new(), mk_object_accessors(), mk_scalar_accessors(),
-    mk_set_accessors(), mk_singleton()
-
-The superclass L<Class::Accessor> defines these methods and functions:
-
-    _carp(), _croak(), _mk_accessors(), accessor_name_for(),
-    best_practice_accessor_name_for(), best_practice_mutator_name_for(),
-    follow_best_practice(), get(), make_accessor(), make_ro_accessor(),
-    make_wo_accessor(), mk_accessors(), mk_ro_accessors(),
-    mk_wo_accessors(), mutator_name_for(), set()
-
-The superclass L<Class::Accessor::Installer> defines these methods and
-functions:
-
-    install_accessor()
-
-The superclass L<Class::Accessor::Constructor> defines these methods and
-functions:
-
-    _make_constructor(), mk_constructor(), mk_constructor_with_dirty(),
-    mk_singleton_constructor()
-
-The superclass L<Data::Inherited> defines these methods and functions:
-
-    every_hash(), every_list(), flush_every_cache_by_key()
-
-The superclass L<Class::Accessor::Constructor::Base> defines these methods
-and functions:
-
-    STORE(), clear_dirty(), clear_hygienic(), clear_unhygienic(),
-    contains_hygienic(), contains_unhygienic(), delete_hygienic(),
-    delete_unhygienic(), dirty(), dirty_clear(), dirty_set(),
-    elements_hygienic(), elements_unhygienic(), hygienic(),
-    hygienic_clear(), hygienic_contains(), hygienic_delete(),
-    hygienic_elements(), hygienic_insert(), hygienic_is_empty(),
-    hygienic_size(), insert_hygienic(), insert_unhygienic(),
-    is_empty_hygienic(), is_empty_unhygienic(), set_dirty(),
-    size_hygienic(), size_unhygienic(), unhygienic(), unhygienic_clear(),
-    unhygienic_contains(), unhygienic_delete(), unhygienic_elements(),
-    unhygienic_insert(), unhygienic_is_empty(), unhygienic_size()
-
-The superclass L<Tie::StdHash> defines these methods and functions:
-
-    CLEAR(), DELETE(), EXISTS(), FETCH(), FIRSTKEY(), NEXTKEY(), SCALAR(),
-    TIEHASH()
+See perlmodinstall for information and options on installing Perl modules.
 
 =head1 BUGS AND LIMITATIONS
 
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
-
-=head1 INSTALLATION
-
-See perlmodinstall for information and options on installing Perl modules.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
 
 =head1 AVAILABILITY
 
 The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see L<http://search.cpan.org/dist/Data-Storage/>.
+Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
+site near you, or see
+L<http://search.cpan.org/dist/Data-Storage/>.
 
-=head1 AUTHORS
+The development version lives at
+L<http://github.com/hanekomu/Data-Storage/>.
+Instead of sending patches, please fork this project using the standard git
+and github infrastructure.
 
-Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
+=head1 AUTHOR
+
+  Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004-2009 by the authors.
+This software is copyright (c) 2004 by Marcel Gruenauer.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+

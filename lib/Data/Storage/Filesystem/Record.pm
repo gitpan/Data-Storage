@@ -1,196 +1,62 @@
-package Data::Storage::Filesystem::Record;
+use 5.008;
 use strict;
 use warnings;
-our $VERSION = '0.11';
-use base 'Class::Accessor::Complex';
-#<<<
+
+package Data::Storage::Filesystem::Record;
+our $VERSION = '1.100850';
+# ABSTRACT: A record from a filesystem-based storage
+use parent 'Class::Accessor::Complex';
 __PACKAGE__
     ->mk_new
     ->mk_boolean_accessors(qw(stored))
     ->mk_scalar_accessors(qw(filename data mode));
-#>>>
 1;
+
+
 __END__
-
-
+=pod
 
 =head1 NAME
 
-Data::Storage::Filesystem::Record - generic abstract storage mechanism
+Data::Storage::Filesystem::Record - A record from a filesystem-based storage
 
-=head1 SYNOPSIS
+=head1 VERSION
 
-    Data::Storage::Filesystem::Record->new;
+version 1.100850
 
-=head1 DESCRIPTION
+=head1 INSTALLATION
 
-None yet. This is an early release; fully functional, but undocumented. The
-next release will have more documentation.
-
-=head1 METHODS
-
-=over 4
-
-=item C<new>
-
-    my $obj = Data::Storage::Filesystem::Record->new;
-    my $obj = Data::Storage::Filesystem::Record->new(%args);
-
-Creates and returns a new object. The constructor will accept as arguments a
-list of pairs, from component name to initial value. For each pair, the named
-component is initialized by calling the method of the same name with the given
-value. If called with a single hash reference, it is dereferenced and its
-key/value pairs are set as described before.
-
-=item C<clear_data>
-
-    $obj->clear_data;
-
-Clears the value.
-
-=item C<clear_filename>
-
-    $obj->clear_filename;
-
-Clears the value.
-
-=item C<clear_mode>
-
-    $obj->clear_mode;
-
-Clears the value.
-
-=item C<clear_stored>
-
-    $obj->clear_stored;
-
-Clears the boolean value by setting it to 0.
-
-=item C<data>
-
-    my $value = $obj->data;
-    $obj->data($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<data_clear>
-
-    $obj->data_clear;
-
-Clears the value.
-
-=item C<filename>
-
-    my $value = $obj->filename;
-    $obj->filename($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<filename_clear>
-
-    $obj->filename_clear;
-
-Clears the value.
-
-=item C<mode>
-
-    my $value = $obj->mode;
-    $obj->mode($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<mode_clear>
-
-    $obj->mode_clear;
-
-Clears the value.
-
-=item C<set_stored>
-
-    $obj->set_stored;
-
-Sets the boolean value to 1.
-
-=item C<stored>
-
-    $obj->stored($value);
-    my $value = $obj->stored;
-
-If called without an argument, returns the boolean value (0 or 1). If called
-with an argument, it normalizes it to the boolean value. That is, the values
-0, undef and the empty string become 0; everything else becomes 1.
-
-=item C<stored_clear>
-
-    $obj->stored_clear;
-
-Clears the boolean value by setting it to 0.
-
-=item C<stored_set>
-
-    $obj->stored_set;
-
-Sets the boolean value to 1.
-
-=back
-
-Data::Storage::Filesystem::Record inherits from
-L<Class::Accessor::Complex>.
-
-The superclass L<Class::Accessor::Complex> defines these methods and
-functions:
-
-    mk_abstract_accessors(), mk_array_accessors(), mk_boolean_accessors(),
-    mk_class_array_accessors(), mk_class_hash_accessors(),
-    mk_class_scalar_accessors(), mk_concat_accessors(),
-    mk_forward_accessors(), mk_hash_accessors(), mk_integer_accessors(),
-    mk_new(), mk_object_accessors(), mk_scalar_accessors(),
-    mk_set_accessors(), mk_singleton()
-
-The superclass L<Class::Accessor> defines these methods and functions:
-
-    _carp(), _croak(), _mk_accessors(), accessor_name_for(),
-    best_practice_accessor_name_for(), best_practice_mutator_name_for(),
-    follow_best_practice(), get(), make_accessor(), make_ro_accessor(),
-    make_wo_accessor(), mk_accessors(), mk_ro_accessors(),
-    mk_wo_accessors(), mutator_name_for(), set()
-
-The superclass L<Class::Accessor::Installer> defines these methods and
-functions:
-
-    install_accessor()
+See perlmodinstall for information and options on installing Perl modules.
 
 =head1 BUGS AND LIMITATIONS
 
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
-
-=head1 INSTALLATION
-
-See perlmodinstall for information and options on installing Perl modules.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
 
 =head1 AVAILABILITY
 
 The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see L<http://search.cpan.org/dist/Data-Storage/>.
+Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
+site near you, or see
+L<http://search.cpan.org/dist/Data-Storage/>.
 
-=head1 AUTHORS
+The development version lives at
+L<http://github.com/hanekomu/Data-Storage/>.
+Instead of sending patches, please fork this project using the standard git
+and github infrastructure.
 
-Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
+=head1 AUTHOR
+
+  Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004-2009 by the authors.
+This software is copyright (c) 2004 by Marcel Gruenauer.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 

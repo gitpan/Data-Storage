@@ -1,19 +1,23 @@
+use 5.008;
+use strict;
+use warnings;
+
 package Data::Storage::DBI;
+our $VERSION = '1.100850';
+# ABSTRACT: Mixin class for storages based on DBI
 
 # Mixin class for storages based on a transactional RDBMS. When deriving from
 # this class, put it before Data::Storage in 'use base' so that its
 # connect() and disconnect() methods are found before the generic ones from
 # Data::Storage.
-use strict;
-use warnings;
 use DBI ':sql_types';
 use Data::Storage::DBI::Unrealized;
 use Data::Storage::Statement;
 use Error::Hierarchy::Util 'assert_defined';
 use Error::Hierarchy::Internal::DBI;
+use Data::Storage::Exception::Connect;
 use Error ':try';
-our $VERSION = '0.11';
-use base qw(Data::Storage Class::Accessor::Complex);
+use parent qw(Data::Storage Class::Accessor::Complex);
 __PACKAGE__->mk_scalar_accessors(
     qw(
       dbh dbname dbuser dbpass dbhost port AutoCommit RaiseError PrintError
@@ -86,12 +90,10 @@ sub connect {
             $self->set_rollback_mode;
             $self->disconnect;
         }
-        throw Error::Hierarchy::Internal::CustomMessage(
-            custom_message => sprintf
-              "couldn't connect to storage [%s (user %s)]: %s",
-            $self->dbname,
-            $self->dbuser,
-            $E
+        throw Data::Storage::Exception::Connect(
+            dbname => $self->dbname,
+            dbuser => $self->dbuser,
+            reason => $E
         );
     };
 }
@@ -161,8 +163,7 @@ sub prepare_named {
     our %cache;
     $cache{$name} ||= $self->rewrite_query($query);
     Data::Storage::Statement->new(
-        sth => $self->dbh->prepare_cached($cache{$name})
-    );
+        sth => $self->dbh->prepare_cached($cache{$name}));
 }
 
 # Do nothing here; subclasses can override it to rename tables and columns,
@@ -189,365 +190,106 @@ sub signature {
       $self->SUPER::signature(), $self->dbname, $self->dbuser;
 }
 1;
+
+
 __END__
-
-
+=pod
 
 =head1 NAME
 
-Data::Storage::DBI - generic abstract storage mechanism
+Data::Storage::DBI - Mixin class for storages based on DBI
 
-=head1 SYNOPSIS
+=head1 VERSION
 
-    Data::Storage::DBI->new;
-
-=head1 DESCRIPTION
-
-None yet. This is an early release; fully functional, but undocumented. The
-next release will have more documentation.
+version 1.100850
 
 =head1 METHODS
 
-=over 4
+=head2 commit
 
-=item C<AutoCommit>
+FIXME
 
-    my $value = $obj->AutoCommit;
-    $obj->AutoCommit($value);
+=head2 connect
 
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
+FIXME
 
-=item C<AutoCommit_clear>
+=head2 connect_string
 
-    $obj->AutoCommit_clear;
+FIXME
 
-Clears the value.
+=head2 disconnect
 
-=item C<HandleError>
+FIXME
 
-    my $value = $obj->HandleError;
-    $obj->HandleError($value);
+=head2 get_connect_options
 
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
+FIXME
 
-=item C<HandleError_clear>
+=head2 is_connected
 
-    $obj->HandleError_clear;
+FIXME
 
-Clears the value.
+=head2 lazy_connect
 
-=item C<LongReadLen>
+FIXME
 
-    my $value = $obj->LongReadLen;
-    $obj->LongReadLen($value);
+=head2 prepare
 
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
+FIXME
 
-=item C<LongReadLen_clear>
+=head2 prepare_named
 
-    $obj->LongReadLen_clear;
+FIXME
 
-Clears the value.
+=head2 rewrite_query
 
-=item C<PrintError>
+FIXME
 
-    my $value = $obj->PrintError;
-    $obj->PrintError($value);
+=head2 rewrite_query_for_dbd
 
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
+FIXME
 
-=item C<PrintError_clear>
+=head2 rollback
 
-    $obj->PrintError_clear;
+FIXME
 
-Clears the value.
+=head2 signature
 
-=item C<RaiseError>
-
-    my $value = $obj->RaiseError;
-    $obj->RaiseError($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<RaiseError_clear>
-
-    $obj->RaiseError_clear;
-
-Clears the value.
-
-=item C<clear_AutoCommit>
-
-    $obj->clear_AutoCommit;
-
-Clears the value.
-
-=item C<clear_HandleError>
-
-    $obj->clear_HandleError;
-
-Clears the value.
-
-=item C<clear_LongReadLen>
-
-    $obj->clear_LongReadLen;
-
-Clears the value.
-
-=item C<clear_PrintError>
-
-    $obj->clear_PrintError;
-
-Clears the value.
-
-=item C<clear_RaiseError>
-
-    $obj->clear_RaiseError;
-
-Clears the value.
-
-=item C<clear_dbh>
-
-    $obj->clear_dbh;
-
-Clears the value.
-
-=item C<clear_dbhost>
-
-    $obj->clear_dbhost;
-
-Clears the value.
-
-=item C<clear_dbname>
-
-    $obj->clear_dbname;
-
-Clears the value.
-
-=item C<clear_dbpass>
-
-    $obj->clear_dbpass;
-
-Clears the value.
-
-=item C<clear_dbuser>
-
-    $obj->clear_dbuser;
-
-Clears the value.
-
-=item C<clear_port>
-
-    $obj->clear_port;
-
-Clears the value.
-
-=item C<clear_schema_prefix>
-
-    $obj->clear_schema_prefix;
-
-Clears the value.
-
-=item C<dbh>
-
-    my $value = $obj->dbh;
-    $obj->dbh($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<dbh_clear>
-
-    $obj->dbh_clear;
-
-Clears the value.
-
-=item C<dbhost>
-
-    my $value = $obj->dbhost;
-    $obj->dbhost($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<dbhost_clear>
-
-    $obj->dbhost_clear;
-
-Clears the value.
-
-=item C<dbname>
-
-    my $value = $obj->dbname;
-    $obj->dbname($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<dbname_clear>
-
-    $obj->dbname_clear;
-
-Clears the value.
-
-=item C<dbpass>
-
-    my $value = $obj->dbpass;
-    $obj->dbpass($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<dbpass_clear>
-
-    $obj->dbpass_clear;
-
-Clears the value.
-
-=item C<dbuser>
-
-    my $value = $obj->dbuser;
-    $obj->dbuser($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<dbuser_clear>
-
-    $obj->dbuser_clear;
-
-Clears the value.
-
-=item C<port>
-
-    my $value = $obj->port;
-    $obj->port($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<port_clear>
-
-    $obj->port_clear;
-
-Clears the value.
-
-=item C<schema_prefix>
-
-    my $value = $obj->schema_prefix;
-    $obj->schema_prefix($value);
-
-A basic getter/setter method. If called without an argument, it returns the
-value. If called with a single argument, it sets the value.
-
-=item C<schema_prefix_clear>
-
-    $obj->schema_prefix_clear;
-
-Clears the value.
-
-=back
-
-Data::Storage::DBI inherits from L<Data::Storage>.
-
-The superclass L<Data::Storage> defines these methods and functions:
-
-    new(), clear_log(), clear_rollback_mode(), create(), id(),
-    initialize_data(), log(), log_clear(), rollback_mode(),
-    rollback_mode_clear(), rollback_mode_set(), set_rollback_mode(),
-    setup(), test_setup()
-
-The superclass L<Class::Accessor::Complex> defines these methods and
-functions:
-
-    mk_abstract_accessors(), mk_array_accessors(), mk_boolean_accessors(),
-    mk_class_array_accessors(), mk_class_hash_accessors(),
-    mk_class_scalar_accessors(), mk_concat_accessors(),
-    mk_forward_accessors(), mk_hash_accessors(), mk_integer_accessors(),
-    mk_new(), mk_object_accessors(), mk_scalar_accessors(),
-    mk_set_accessors(), mk_singleton()
-
-The superclass L<Class::Accessor> defines these methods and functions:
-
-    _carp(), _croak(), _mk_accessors(), accessor_name_for(),
-    best_practice_accessor_name_for(), best_practice_mutator_name_for(),
-    follow_best_practice(), get(), make_accessor(), make_ro_accessor(),
-    make_wo_accessor(), mk_accessors(), mk_ro_accessors(),
-    mk_wo_accessors(), mutator_name_for(), set()
-
-The superclass L<Class::Accessor::Installer> defines these methods and
-functions:
-
-    install_accessor()
-
-The superclass L<Class::Accessor::Constructor> defines these methods and
-functions:
-
-    _make_constructor(), mk_constructor(), mk_constructor_with_dirty(),
-    mk_singleton_constructor()
-
-The superclass L<Data::Inherited> defines these methods and functions:
-
-    every_hash(), every_list(), flush_every_cache_by_key()
-
-The superclass L<Class::Accessor::Constructor::Base> defines these methods
-and functions:
-
-    STORE(), clear_dirty(), clear_hygienic(), clear_unhygienic(),
-    contains_hygienic(), contains_unhygienic(), delete_hygienic(),
-    delete_unhygienic(), dirty(), dirty_clear(), dirty_set(),
-    elements_hygienic(), elements_unhygienic(), hygienic(),
-    hygienic_clear(), hygienic_contains(), hygienic_delete(),
-    hygienic_elements(), hygienic_insert(), hygienic_is_empty(),
-    hygienic_size(), insert_hygienic(), insert_unhygienic(),
-    is_empty_hygienic(), is_empty_unhygienic(), set_dirty(),
-    size_hygienic(), size_unhygienic(), unhygienic(), unhygienic_clear(),
-    unhygienic_contains(), unhygienic_delete(), unhygienic_elements(),
-    unhygienic_insert(), unhygienic_is_empty(), unhygienic_size()
-
-The superclass L<Tie::StdHash> defines these methods and functions:
-
-    CLEAR(), DELETE(), EXISTS(), FETCH(), FIRSTKEY(), NEXTKEY(), SCALAR(),
-    TIEHASH()
-
-=head1 TAGS
-
-If you talk about this module in blogs, on L<delicious.com> or anywhere else,
-please use the C<datastorage> tag.
-
-=head1 BUGS AND LIMITATIONS
-
-No bugs have been reported.
-
-Please report any bugs or feature requests to
-C<<bug-data-storage@rt.cpan.org>>, or through the web interface at
-L<http://rt.cpan.org>.
+FIXME
 
 =head1 INSTALLATION
 
 See perlmodinstall for information and options on installing Perl modules.
 
+=head1 BUGS AND LIMITATIONS
+
+No bugs have been reported.
+
+Please report any bugs or feature requests through the web interface at
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
+
 =head1 AVAILABILITY
 
 The latest version of this module is available from the Comprehensive Perl
-Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
-site near you. Or see L<http://search.cpan.org/dist/Data-Storage/>.
+Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
+site near you, or see
+L<http://search.cpan.org/dist/Data-Storage/>.
+
+The development version lives at
+L<http://github.com/hanekomu/Data-Storage/>.
+Instead of sending patches, please fork this project using the standard git
+and github infrastructure.
 
 =head1 AUTHOR
 
-Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
+  Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004-2009 by Marcel GrE<uuml>nauer
+This software is copyright (c) 2004 by Marcel Gruenauer.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 
