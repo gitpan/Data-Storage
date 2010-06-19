@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package Data::Storage::DBI::Mock;
-our $VERSION = '1.100850';
+BEGIN {
+  $Data::Storage::DBI::Mock::VERSION = '1.101700';
+}
 # ABSTRACT: Base class for mock DBI storages
 use parent 'Data::Storage::Mock';
 
@@ -29,7 +31,7 @@ Data::Storage::DBI::Mock - Base class for mock DBI storages
 
 =head1 VERSION
 
-version 1.100850
+version 1.101700
 
 =head1 METHODS
 
@@ -46,7 +48,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
+L<http://rt.cpan.org>.
 
 =head1 AVAILABILITY
 

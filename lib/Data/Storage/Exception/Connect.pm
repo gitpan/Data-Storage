@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package Data::Storage::Exception::Connect;
-our $VERSION = '1.100850';
+BEGIN {
+  $Data::Storage::Exception::Connect::VERSION = '1.101700';
+}
 # ABSTRACT: Exception raised on a connection failure
 use parent qw(Data::Storage::Exception);
 __PACKAGE__->mk_scalar_accessors(qw(dbname dbuser reason));
@@ -22,7 +24,7 @@ Data::Storage::Exception::Connect - Exception raised on a connection failure
 
 =head1 VERSION
 
-version 1.100850
+version 1.101700
 
 =head1 INSTALLATION
 
@@ -33,7 +35,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
+L<http://rt.cpan.org>.
 
 =head1 AVAILABILITY
 

@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package Data::Storage;
-our $VERSION = '1.100850';
+BEGIN {
+  $Data::Storage::VERSION = '1.101700';
+}
 # ABSTRACT: Base class for storages
 use Class::Null;
 use parent qw(
@@ -67,7 +69,7 @@ Data::Storage - Base class for storages
 
 =head1 VERSION
 
-version 1.100850
+version 1.101700
 
 =head1 METHODS
 
@@ -108,7 +110,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
+L<http://rt.cpan.org>.
 
 =head1 AVAILABILITY
 

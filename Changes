@@ -1,5 +1,8 @@
 Revision history for Perl extension Data-Storage
 
+1.101700  2010-06-19 11:09:40 Europe/Vienna
+    - converted tabs to spaces
+
 1.100850  2010-03-26 16:22:50 Europe/Vienna
     - converted the distribution to Dist::Zilla-style
 

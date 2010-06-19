@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package Data::Storage::DBI::Unrealized;
-our $VERSION = '1.100850';
+BEGIN {
+  $Data::Storage::DBI::Unrealized::VERSION = '1.101700';
+}
 # ABSTRACT: Proxy class for lazy DBI connections
 use parent 'Class::Accessor::Complex';
 __PACKAGE__
@@ -30,7 +32,7 @@ Data::Storage::DBI::Unrealized - Proxy class for lazy DBI connections
 
 =head1 VERSION
 
-version 1.100850
+version 1.101700
 
 =head1 INSTALLATION
 
@@ -41,7 +43,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
+L<http://rt.cpan.org>.
 
 =head1 AVAILABILITY
 

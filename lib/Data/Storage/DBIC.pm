@@ -3,7 +3,9 @@ use strict;
 use warnings;
 
 package Data::Storage::DBIC;
-our $VERSION = '1.100850';
+BEGIN {
+  $Data::Storage::DBIC::VERSION = '1.101700';
+}
 # ABSTRACT: Base class for DBIx::Class-based storages
 use Error::Hierarchy::Util qw(assert_defined load_class);
 use Error ':try';
@@ -100,7 +102,7 @@ Data::Storage::DBIC - Base class for DBIx::Class-based storages
 
 =head1 VERSION
 
-version 1.100850
+version 1.101700
 
 =head1 METHODS
 
@@ -137,7 +139,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
+L<http://rt.cpan.org>.
 
 =head1 AVAILABILITY
 

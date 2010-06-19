@@ -3,7 +3,10 @@ use strict;
 use warnings;
 
 package Data::Storage::DBI::Postgres;
-our $VERSION = '1.100850';
+BEGIN {
+  $Data::Storage::DBI::Postgres::VERSION = '1.101700';
+}
+
 # ABSTRACT: Base class for PostgreSQL DBI storages
 use Error::Hierarchy::Util 'assert_defined';
 use parent qw(Data::Storage::DBI Class::Accessor::Complex);
@@ -35,7 +38,7 @@ sub next_id {
         throw Error::Hierarchy::Internal::ValueUndefined;
     }
     my $sth = $self->prepare("
-	SELECT NEXTVAL('$sequence_name')");
+    SELECT NEXTVAL('$sequence_name')");
     $sth->execute;
     my ($next_id) = $sth->fetchrow_array;
     $sth->finish;
@@ -70,7 +73,7 @@ Data::Storage::DBI::Postgres - Base class for PostgreSQL DBI storages
 
 =head1 VERSION
 
-version 1.100850
+version 1.101700
 
 =head1 METHODS
 
@@ -107,7 +110,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
+L<http://rt.cpan.org>.
 
 =head1 AVAILABILITY
 
