@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::Null;
 BEGIN {
-  $Data::Storage::Null::VERSION = '1.101700';
+  $Data::Storage::Null::VERSION = '1.102250';
 }
 # ABSTRACT: Base class for null storages
 use Class::Null;
@@ -21,13 +21,9 @@ sub AUTOLOAD               { Class::Null->new }
 __END__
 =pod
 
-=head1 NAME
-
-Data::Storage::Null - Base class for null storages
-
 =head1 VERSION
 
-version 1.101700
+version 1.102250
 
 =head1 METHODS
 
@@ -64,7 +60,7 @@ and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

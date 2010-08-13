@@ -11,7 +11,7 @@ lib/Data/Storage.pm
 lib/Data/Storage/DBI.pm
 lib/Data/Storage/DBI/Mock.pm
 lib/Data/Storage/DBI/Oracle.pm
-lib/Data/Storage/DBI/Postgres.pm
+lib/Data/Storage/DBI/Pg.pm
 lib/Data/Storage/DBI/Result.pm
 lib/Data/Storage/DBI/SQLite.pm
 lib/Data/Storage/DBI/Unrealized.pm

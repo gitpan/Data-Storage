@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage;
 BEGIN {
-  $Data::Storage::VERSION = '1.101700';
+  $Data::Storage::VERSION = '1.102250';
 }
 # ABSTRACT: Base class for storages
 use Class::Null;
@@ -63,13 +63,9 @@ sub lazy_connect { }
 __END__
 =pod
 
-=head1 NAME
-
-Data::Storage - Base class for storages
-
 =head1 VERSION
 
-version 1.101700
+version 1.102250
 
 =head1 METHODS
 
@@ -126,7 +122,7 @@ and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::Exception;
 BEGIN {
-  $Data::Storage::Exception::VERSION = '1.101700';
+  $Data::Storage::Exception::VERSION = '1.102250';
 }
 # ABSTRACT: Base class for storage exceptions
 use parent qw(Error::Hierarchy Class::Accessor::Complex);
@@ -14,13 +14,9 @@ use parent qw(Error::Hierarchy Class::Accessor::Complex);
 __END__
 =pod
 
-=head1 NAME
-
-Data::Storage::Exception - Base class for storage exceptions
-
 =head1 VERSION
 
-version 1.101700
+version 1.102250
 
 =head1 INSTALLATION
 
@@ -47,7 +43,7 @@ and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

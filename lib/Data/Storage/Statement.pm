@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::Statement;
 BEGIN {
-  $Data::Storage::Statement::VERSION = '1.101700';
+  $Data::Storage::Statement::VERSION = '1.102250';
 }
 # ABSTRACT: Wrapper for DBI statements
 use Data::Miscellany 'value_of';
@@ -70,13 +70,9 @@ sub Statement {
 __END__
 =pod
 
-=head1 NAME
-
-Data::Storage::Statement - Wrapper for DBI statements
-
 =head1 VERSION
 
-version 1.101700
+version 1.102250
 
 =head1 METHODS
 
@@ -125,7 +121,7 @@ and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

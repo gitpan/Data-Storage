@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::Exception::Connect;
 BEGIN {
-  $Data::Storage::Exception::Connect::VERSION = '1.101700';
+  $Data::Storage::Exception::Connect::VERSION = '1.102250';
 }
 # ABSTRACT: Exception raised on a connection failure
 use parent qw(Data::Storage::Exception);
@@ -18,13 +18,9 @@ use constant PROPERTIES => (qw/dbname dbuser reason/);
 __END__
 =pod
 
-=head1 NAME
-
-Data::Storage::Exception::Connect - Exception raised on a connection failure
-
 =head1 VERSION
 
-version 1.101700
+version 1.102250
 
 =head1 INSTALLATION
 
@@ -51,7 +47,7 @@ and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -4,7 +4,7 @@
       "Marcel Gruenauer <marcel@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.101582, CPAN::Meta::Converter version 2.101591",
+   "generated_by" : "Dist::Zilla version 4.101900, CPAN::Meta::Converter version 2.101670",
    "license" : [
       "perl_5"
    ],
@@ -49,71 +49,71 @@
    "provides" : {
       "Data::Storage" : {
          "file" : "lib/Data/Storage.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::DBI" : {
          "file" : "lib/Data/Storage/DBI.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::DBI::Mock" : {
          "file" : "lib/Data/Storage/DBI/Mock.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::DBI::Oracle" : {
          "file" : "lib/Data/Storage/DBI/Oracle.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
-      "Data::Storage::DBI::Postgres" : {
-         "file" : "lib/Data/Storage/DBI/Postgres.pm",
-         "version" : "1.101700"
+      "Data::Storage::DBI::Pg" : {
+         "file" : "lib/Data/Storage/DBI/Pg.pm",
+         "version" : "1.102250"
       },
       "Data::Storage::DBI::Result" : {
          "file" : "lib/Data/Storage/DBI/Result.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::DBI::SQLite" : {
          "file" : "lib/Data/Storage/DBI/SQLite.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::DBI::Unrealized" : {
          "file" : "lib/Data/Storage/DBI/Unrealized.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::DBIC" : {
          "file" : "lib/Data/Storage/DBIC.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::Exception" : {
          "file" : "lib/Data/Storage/Exception.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::Exception::Connect" : {
          "file" : "lib/Data/Storage/Exception/Connect.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::Filesystem" : {
          "file" : "lib/Data/Storage/Filesystem.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::Filesystem::Record" : {
          "file" : "lib/Data/Storage/Filesystem/Record.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::Memory" : {
          "file" : "lib/Data/Storage/Memory.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::Mock" : {
          "file" : "lib/Data/Storage/Mock.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::Null" : {
          "file" : "lib/Data/Storage/Null.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       },
       "Data::Storage::Statement" : {
          "file" : "lib/Data/Storage/Statement.pm",
-         "version" : "1.101700"
+         "version" : "1.102250"
       }
    },
    "release_status" : "stable",
@@ -127,6 +127,6 @@
          "url" : "http://github.com/hanekomu/Data-Storage"
       }
    },
-   "version" : "1.101700"
+   "version" : "1.102250"
 }
 

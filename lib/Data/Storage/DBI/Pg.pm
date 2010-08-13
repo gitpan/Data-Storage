@@ -2,12 +2,12 @@ use 5.008;
 use strict;
 use warnings;
 
-package Data::Storage::DBI::Postgres;
+package Data::Storage::DBI::Pg;
 BEGIN {
-  $Data::Storage::DBI::Postgres::VERSION = '1.101700';
+  $Data::Storage::DBI::Pg::VERSION = '1.102250';
 }
 
-# ABSTRACT: Base class for PostgreSQL DBI storages
+# ABSTRACT: Base class for Pg DBI storages
 use Error::Hierarchy::Util 'assert_defined';
 use parent qw(Data::Storage::DBI Class::Accessor::Complex);
 use constant connect_string_dbi_id => 'Pg';
@@ -65,15 +65,11 @@ sub rewrite_query_for_dbd {
 __END__
 =pod
 
-=for stopwords PostgreSQL
-
-=head1 NAME
-
-Data::Storage::DBI::Postgres - Base class for PostgreSQL DBI storages
+=for stopwords Pg
 
 =head1 VERSION
 
-version 1.101700
+version 1.102250
 
 =head1 METHODS
 
@@ -126,7 +122,7 @@ and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

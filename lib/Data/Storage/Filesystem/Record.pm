@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::Filesystem::Record;
 BEGIN {
-  $Data::Storage::Filesystem::Record::VERSION = '1.101700';
+  $Data::Storage::Filesystem::Record::VERSION = '1.102250';
 }
 # ABSTRACT: A record from a filesystem-based storage
 use parent 'Class::Accessor::Complex';
@@ -18,13 +18,9 @@ __PACKAGE__
 __END__
 =pod
 
-=head1 NAME
-
-Data::Storage::Filesystem::Record - A record from a filesystem-based storage
-
 =head1 VERSION
 
-version 1.101700
+version 1.102250
 
 =head1 INSTALLATION
 
@@ -51,7 +47,7 @@ and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

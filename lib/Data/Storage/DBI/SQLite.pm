@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::DBI::SQLite;
 BEGIN {
-  $Data::Storage::DBI::SQLite::VERSION = '1.101700';
+  $Data::Storage::DBI::SQLite::VERSION = '1.102250';
 }
 # ABSTRACT: Base class for SQLite DBI storages
 use parent 'Data::Storage::DBI';
@@ -46,13 +46,9 @@ __END__
 
 =for stopwords SQLite
 
-=head1 NAME
-
-Data::Storage::DBI::SQLite - Base class for SQLite DBI storages
-
 =head1 VERSION
 
-version 1.101700
+version 1.102250
 
 =head1 METHODS
 
@@ -93,7 +89,7 @@ and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

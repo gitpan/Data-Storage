@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::DBI::Unrealized;
 BEGIN {
-  $Data::Storage::DBI::Unrealized::VERSION = '1.101700';
+  $Data::Storage::DBI::Unrealized::VERSION = '1.102250';
 }
 # ABSTRACT: Proxy class for lazy DBI connections
 use parent 'Class::Accessor::Complex';
@@ -26,13 +26,9 @@ sub AUTOLOAD {
 __END__
 =pod
 
-=head1 NAME
-
-Data::Storage::DBI::Unrealized - Proxy class for lazy DBI connections
-
 =head1 VERSION
 
-version 1.101700
+version 1.102250
 
 =head1 INSTALLATION
 
@@ -59,7 +55,7 @@ and github infrastructure.
 
 =head1 AUTHOR
 
-  Marcel Gruenauer <marcel@cpan.org>
+Marcel Gruenauer <marcel@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

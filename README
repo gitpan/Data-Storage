@@ -1,8 +1,5 @@
-NAME
-    Data::Storage - Base class for storages
-
 VERSION
-    version 1.101700
+    version 1.102250
 
 METHODS
   connect
@@ -47,7 +44,7 @@ AVAILABILITY
     infrastructure.
 
 AUTHOR
-      Marcel Gruenauer <marcel@cpan.org>
+    Marcel Gruenauer <marcel@cpan.org>
 
 COPYRIGHT AND LICENSE
     This software is copyright (c) 2004 by Marcel Gruenauer.
