@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::DBIC;
 BEGIN {
-  $Data::Storage::DBIC::VERSION = '1.102250';
+  $Data::Storage::DBIC::VERSION = '1.102520';
 }
 # ABSTRACT: Base class for DBIx::Class-based storages
 use Error::Hierarchy::Util qw(assert_defined load_class);
@@ -96,9 +96,13 @@ sub lazy_connect {
 __END__
 =pod
 
+=head1 NAME
+
+Data::Storage::DBIC - Base class for DBIx::Class-based storages
+
 =head1 VERSION
 
-version 1.102250
+version 1.102520
 
 =head1 METHODS
 
@@ -141,17 +145,26 @@ L<http://rt.cpan.org>.
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
-site near you, or see
-L<http://search.cpan.org/dist/Data-Storage/>.
+site near you, or see L<http://search.cpan.org/dist/Data-Storage/>.
 
-The development version lives at
-L<http://github.com/hanekomu/Data-Storage/>.
-Instead of sending patches, please fork this project using the standard git
-and github infrastructure.
+The development version lives at L<http://github.com/hanekomu/Data-Storage>
+and may be cloned from L<git://github.com/hanekomu/Data-Storage>.
+Instead of sending patches, please fork this project using the standard
+git and github infrastructure.
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Marcel Gruenauer <marcel@cpan.org>
+
+=item *
+
+Florian Helmberger <fh@univie.ac.at>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

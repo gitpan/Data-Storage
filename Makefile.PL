@@ -10,7 +10,7 @@ use ExtUtils::MakeMaker 6.31;
 
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'Base class for storages',
-  'AUTHOR' => 'Marcel Gruenauer <marcel@cpan.org>',
+  'AUTHOR' => 'Marcel Gruenauer <marcel@cpan.org>, Florian Helmberger <fh@univie.ac.at>',
   'BUILD_REQUIRES' => {
     'Carp' => '0',
     'English' => '0',
@@ -39,7 +39,7 @@ my %WriteMakefileArgs = (
     'constant' => '0',
     'parent' => '0'
   },
-  'VERSION' => '1.102250',
+  'VERSION' => '1.102520',
   'test' => {
     'TESTS' => 't/*.t'
   }

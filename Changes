@@ -1,5 +1,8 @@
 Revision history for Perl extension Data-Storage
 
+1.102520  2010-09-09 21:08:26 Europe/Vienna
+    - D::S::DBI::Pg: fixed <BOOL> replacement (fhelmberger)
+
 1.102250  2010-08-13 14:32:51 Europe/Vienna
 
 1.101700  2010-06-19 11:09:40 Europe/Vienna

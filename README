@@ -1,5 +1,8 @@
+NAME
+    Data::Storage - Base class for storages
+
 VERSION
-    version 1.102250
+    version 1.102520
 
 METHODS
   connect
@@ -39,12 +42,15 @@ AVAILABILITY
     CPAN site near you, or see <http://search.cpan.org/dist/Data-Storage/>.
 
     The development version lives at
-    <http://github.com/hanekomu/Data-Storage/>. Instead of sending patches,
+    <http://github.com/hanekomu/Data-Storage> and may be cloned from
+    <git://github.com/hanekomu/Data-Storage>. Instead of sending patches,
     please fork this project using the standard git and github
     infrastructure.
 
-AUTHOR
-    Marcel Gruenauer <marcel@cpan.org>
+AUTHORS
+    *   Marcel Gruenauer <marcel@cpan.org>
+
+    *   Florian Helmberger <fh@univie.ac.at>
 
 COPYRIGHT AND LICENSE
     This software is copyright (c) 2004 by Marcel Gruenauer.
