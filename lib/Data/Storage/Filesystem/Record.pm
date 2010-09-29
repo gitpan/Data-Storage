@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::Filesystem::Record;
 BEGIN {
-  $Data::Storage::Filesystem::Record::VERSION = '1.102520';
+  $Data::Storage::Filesystem::Record::VERSION = '1.102720';
 }
 # ABSTRACT: A record from a filesystem-based storage
 use parent 'Class::Accessor::Complex';
@@ -24,7 +24,7 @@ Data::Storage::Filesystem::Record - A record from a filesystem-based storage
 
 =head1 VERSION
 
-version 1.102520
+version 1.102720
 
 =head1 INSTALLATION
 
@@ -35,7 +35,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
 
 =head1 AVAILABILITY
 

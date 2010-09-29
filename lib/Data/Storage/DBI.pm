@@ -4,10 +4,10 @@ use warnings;
 
 package Data::Storage::DBI;
 BEGIN {
-  $Data::Storage::DBI::VERSION = '1.102520';
+  $Data::Storage::DBI::VERSION = '1.102720';
 }
-# ABSTRACT: Mixin class for storages based on DBI
 
+# ABSTRACT: Mixin class for storages based on DBI
 # Mixin class for storages based on a transactional RDBMS. When deriving from
 # this class, put it before Data::Storage in 'use base' so that its
 # connect() and disconnect() methods are found before the generic ones from
@@ -23,15 +23,16 @@ use parent qw(Data::Storage Class::Accessor::Complex);
 __PACKAGE__->mk_scalar_accessors(
     qw(
       dbh dbname dbuser dbpass dbhost port AutoCommit RaiseError PrintError
-      LongReadLen HandleError schema_prefix)
+      LongReadLen HandleError ShowErrorStatement schema_prefix)
 );
 use constant DEFAULTS => (
-    AutoCommit    => 0,
-    RaiseError    => 1,
-    PrintError    => 0,
-    LongReadLen   => 4_096_000,
-    HandleError   => Error::Hierarchy::Internal::DBI->handler,
-    schema_prefix => '',
+    AutoCommit         => 0,
+    RaiseError         => 1,
+    PrintError         => 0,
+    LongReadLen        => 4_096_000,
+    HandleError        => Error::Hierarchy::Internal::DBI->handler,
+    ShowErrorStatement => 1,
+    schema_prefix      => '',
 );
 
 # Subclasses that construct the connect string as given below can simply set
@@ -49,11 +50,12 @@ sub connect_string {
 
 sub get_connect_options {
     my $self = shift;
-    {   RaiseError  => $self->RaiseError,
-        PrintError  => $self->PrintError,
-        AutoCommit  => $self->AutoCommit,
-        LongReadLen => $self->LongReadLen,
-        HandleError => $self->HandleError,
+    {   RaiseError         => $self->RaiseError,
+        PrintError         => $self->PrintError,
+        AutoCommit         => $self->AutoCommit,
+        LongReadLen        => $self->LongReadLen,
+        HandleError        => $self->HandleError,
+        ShowErrorStatement => $self->ShowErrorStatement,
     };
 }
 
@@ -203,7 +205,7 @@ Data::Storage::DBI - Mixin class for storages based on DBI
 
 =head1 VERSION
 
-version 1.102520
+version 1.102720
 
 =head1 METHODS
 
@@ -268,7 +270,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
 
 =head1 AVAILABILITY
 

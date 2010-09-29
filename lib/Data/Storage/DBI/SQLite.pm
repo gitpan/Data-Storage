@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::DBI::SQLite;
 BEGIN {
-  $Data::Storage::DBI::SQLite::VERSION = '1.102520';
+  $Data::Storage::DBI::SQLite::VERSION = '1.102720';
 }
 # ABSTRACT: Base class for SQLite DBI storages
 use parent 'Data::Storage::DBI';
@@ -52,7 +52,7 @@ Data::Storage::DBI::SQLite - Base class for SQLite DBI storages
 
 =head1 VERSION
 
-version 1.102520
+version 1.102720
 
 =head1 METHODS
 
@@ -77,7 +77,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
 
 =head1 AVAILABILITY
 

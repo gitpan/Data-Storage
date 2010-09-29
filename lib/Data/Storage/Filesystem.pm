@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::Filesystem;
 BEGIN {
-  $Data::Storage::Filesystem::VERSION = '1.102520';
+  $Data::Storage::Filesystem::VERSION = '1.102720';
 }
 # ABSTRACT: Base class for filesystem-based storages
 use parent qw(Data::Storage Class::Accessor::Complex);
@@ -94,7 +94,7 @@ Data::Storage::Filesystem - Base class for filesystem-based storages
 
 =head1 VERSION
 
-version 1.102520
+version 1.102720
 
 =head1 METHODS
 
@@ -139,7 +139,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
 
 =head1 AVAILABILITY
 

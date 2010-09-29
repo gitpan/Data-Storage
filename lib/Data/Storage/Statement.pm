@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::Statement;
 BEGIN {
-  $Data::Storage::Statement::VERSION = '1.102520';
+  $Data::Storage::Statement::VERSION = '1.102720';
 }
 # ABSTRACT: Wrapper for DBI statements
 use Data::Miscellany 'value_of';
@@ -76,7 +76,7 @@ Data::Storage::Statement - Wrapper for DBI statements
 
 =head1 VERSION
 
-version 1.102520
+version 1.102720
 
 =head1 METHODS
 
@@ -109,7 +109,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
 
 =head1 AVAILABILITY
 

@@ -4,7 +4,7 @@ use warnings;
 
 package Data::Storage::DBI::Result;
 BEGIN {
-  $Data::Storage::DBI::Result::VERSION = '1.102520';
+  $Data::Storage::DBI::Result::VERSION = '1.102720';
 }
 # ABSTRACT: Base class for DBI query results
 use DBI ':sql_types';
@@ -43,7 +43,7 @@ Data::Storage::DBI::Result - Base class for DBI query results
 
 =head1 VERSION
 
-version 1.102520
+version 1.102720
 
 =head1 METHODS
 
@@ -68,7 +68,7 @@ See perlmodinstall for information and options on installing Perl modules.
 No bugs have been reported.
 
 Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>.
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Data-Storage>.
 
 =head1 AVAILABILITY
 

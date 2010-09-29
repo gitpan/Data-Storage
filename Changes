@@ -1,5 +1,9 @@
 Revision history for Perl extension Data-Storage
 
+1.102720  2010-09-29 14:24:13 Europe/Vienna
+    - added 'ShowErrorStatement' connect option, defaults to 1 (Oracle had this
+      by default, Pg didn't)
+
 1.102520  2010-09-09 21:08:26 Europe/Vienna
     - D::S::DBI::Pg: fixed <BOOL> replacement (fhelmberger)
 
